@@ -1,6 +1,6 @@
 <div align="center">
     <h1>
-        <a href="https://devops.coding.smoa.cloud/p/smore-vimo/d/golang_request_identify/git">
+        <a href="https://github.com/alicfeng/golang_request_identify.git">
             Distributed Request Identity
         </a>
     </h1>
@@ -23,6 +23,8 @@
 
 - [x] 支持 `kratos` 框架服务端与客户端中间件
 
+- [x] 支持 `gin` 框架服务端中间件
+
 
 
 ## 🔨 快速安装
@@ -30,7 +32,7 @@
 基于 `go` 包管理器
 
 ```shell
-go get e.coding.smoa.cloud:devops/smore-vimo/golang_request_identify@v1.0.0
+go get github.com/alicfeng/golang_request_identify@v1.0.0
 ```
 
 
@@ -76,7 +78,7 @@ go get e.coding.smoa.cloud:devops/smore-vimo/golang_request_identify@v1.0.0
 根据 `context.Context` 即可获取
 
 ```
-request_identify.GetRequestIdentify(ctx)
+request_identify.Value(ctx)
 ```
 
 

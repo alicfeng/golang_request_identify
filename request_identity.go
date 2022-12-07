@@ -13,13 +13,13 @@ const (
 	HeaderFieldRequestIdentity = "x-md-global-request-identity" // 请求头追踪标识字段名称
 )
 
-// CreateRequestIdentity 生成请求唯一标识.
-func CreateRequestIdentity() string {
+// Create 生成请求唯一标识.
+func Create() string {
 	return strings.ToLower(fmt.Sprintf("%x", md5.Sum([]byte(uuid.Must(uuid.NewV4()).String()))))
 }
 
-// GetRequestIdentity 获取请求标识.
-func GetRequestIdentity(ctx context.Context) string {
+// Value 获取请求标识.
+func Value(ctx context.Context) string {
 	if md, ok := metadata.FromServerContext(ctx); ok {
 		return md.Get(HeaderFieldRequestIdentity)
 	}

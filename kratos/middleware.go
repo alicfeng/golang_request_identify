@@ -15,13 +15,13 @@ func Server() middleware.Middleware {
 		return func(ctx context.Context, req interface{}) (rsp interface{}, err error) {
 			// 1.服务启用metadata且请求无携带追踪标识 则生成唯一标识并应用
 			if md, ok := metadata.FromServerContext(ctx); ok && "" == md.Get(request.HeaderFieldRequestIdentity) {
-				md.Set(request.HeaderFieldRequestIdentity, request.CreateRequestIdentity())
+				md.Set(request.HeaderFieldRequestIdentity, request.Create())
 			}
 
 			// 2.设置http响应头 仅对http通信生效 告知客户端追踪标识的编码
 			if tr, ok := transport.FromServerContext(ctx); ok && transport.KindHTTP == tr.Kind() {
 				if ht, success := tr.(*http.Transport); success {
-					ht.ReplyHeader().Set(request.HeaderFieldRequestIdentity, request.GetRequestIdentity(ctx))
+					ht.ReplyHeader().Set(request.HeaderFieldRequestIdentity, request.Value(ctx))
 				}
 			}
 
@@ -36,7 +36,7 @@ func Client() middleware.Middleware {
 		return func(ctx context.Context, req interface{}) (rsp interface{}, err error) {
 
 			// 1.将追踪标识追加到上下文中
-			ctx = metadata.AppendToClientContext(ctx, request.HeaderFieldRequestIdentity, request.GetRequestIdentity(ctx))
+			ctx = metadata.AppendToClientContext(ctx, request.HeaderFieldRequestIdentity, request.Value(ctx))
 
 			return handler(ctx, req)
 		}
