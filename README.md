@@ -23,6 +23,8 @@
 
 - [x] 支持 `kratos` 框架服务端与客户端中间件
 
+- [x] 支持 `gin` 框架服务端中间件
+
 
 
 ## 🔨 快速安装
@@ -76,7 +78,7 @@ go get github.com/alicfeng/golang_request_identify@v1.0.0
 根据 `context.Context` 即可获取
 
 ```
-request_identify.GetRequestIdentify(ctx)
+request_identify.Value(ctx)
 ```
 
 
